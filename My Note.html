@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f6f5c">
+<title>My Note</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f1ec;--sf:#fff;--tx:#1d2420;--mu:#68716b;--ln:#dcd8cf;--ac:#1f6f5c;--ac2:#fff;--c0:#fff;--c1:#fff3c4;--c2:#d9f0e4;--c3:#dbe8fb;--c4:#fbdde0;--sh:0 1px 2px rgba(30,40,30,.12);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141816;--sf:#1e2421;--tx:#e9eee9;--mu:#98a39b;--ln:#323a35;--ac:#4fc3a1;--ac2:#0b1511;--c0:#1e2421;--c1:#40391a;--c2:#183b2d;--c3:#1b2e47;--c4:#46242a}}
+:root[data-theme="dark"]{--bg:#141816;--sf:#1e2421;--tx:#e9eee9;--mu:#98a39b;--ln:#323a35;--ac:#4fc3a1;--ac2:#0b1511;--c0:#1e2421;--c1:#40391a;--c2:#183b2d;--c3:#1b2e47;--c4:#46242a}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.55 "Hind Siliguri",system-ui,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:14px 16px 10px}
+h1{margin:0 0 10px;font-size:26px;font-weight:700;letter-spacing:-.2px}
+h1 small{font-size:13px;font-weight:400;color:var(--mu);margin-left:8px}
+.sb{display:flex;align-items:center;gap:8px;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:0 14px}
+.sb input{flex:1;border:0;background:none;color:var(--tx);font:inherit;padding:11px 0;outline:none;min-width:0}
+.sb:focus-within{border-color:var(--ac)}
+main{padding:4px 16px 110px;max-width:900px;margin:0 auto}
+.grid{columns:2 160px;column-gap:12px}
+.card{break-inside:avoid;margin:0 0 12px;border-radius:14px;padding:13px 14px;border:1px solid var(--ln);cursor:pointer;box-shadow:var(--sh);width:100%;text-align:left;color:inherit;font:inherit;display:block}
+.card h3{margin:0 0 4px;font-size:17px;line-height:1.3}
+.card p{margin:0;color:var(--mu);font-size:14px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;word-break:break-word}
+.meta{margin-top:9px;font-size:12px;color:var(--mu);display:flex;gap:10px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--mu);padding:70px 20px}
+.empty b{display:block;color:var(--tx);font-size:19px;margin-bottom:4px}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ac);color:var(--ac2);border:0;border-radius:18px;padding:15px 22px;font:700 16px "Hind Siliguri",sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+.ed{position:fixed;inset:0;background:var(--bg);z-index:20;display:none;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.ed.on{display:flex}
+.bar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--ln)}
+.bar .sp{flex:1}
+.ib{background:none;border:1px solid transparent;color:var(--tx);font:500 15px "Hind Siliguri",sans-serif;padding:8px 12px;border-radius:10px;cursor:pointer}
+.ib:hover,.ib:focus-visible{background:var(--sf);border-color:var(--ln)}
+.ib.pri{background:var(--ac);color:var(--ac2)}
+.ib.on{border-color:var(--ac);color:var(--ac)}
+.ib.dng{color:#c2413b}
+.body{flex:1;overflow:auto;padding:14px 16px 30px;max-width:760px;width:100%;margin:0 auto}
+.body input.t{width:100%;border:0;background:none;color:var(--tx);font:700 24px "Hind Siliguri",sans-serif;outline:none;padding:4px 0 8px}
+.body textarea{width:100%;min-height:200px;border:0;background:none;color:var(--tx);font:inherit;outline:none;resize:vertical;line-height:1.7}
+.cols{display:flex;gap:10px;margin:6px 0 14px;align-items:center}
+.cols button{width:28px;height:28px;border-radius:50%;border:2px solid var(--ln);cursor:pointer}
+.cols button.s{border-color:var(--ac);outline:2px solid var(--ac);outline-offset:1px}
+.fl{border-top:1px solid var(--ln);padding-top:12px;margin-top:8px}
+.fl h4{margin:0 0 8px;font-size:15px;color:var(--mu);font-weight:500}
+.f{display:flex;align-items:center;gap:10px;background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:9px 12px;margin-bottom:8px}
+.f i{font-style:normal;font-size:12px;font-weight:700;background:var(--ac);color:var(--ac2);border-radius:8px;padding:3px 7px;min-width:44px;text-align:center}
+.f span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.f small{color:var(--mu)}
+.f button{border:0;background:none;color:var(--ac);font:500 14px "Hind Siliguri",sans-serif;cursor:pointer;padding:6px}
+.f button.x{color:#c2413b}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 16px;border-radius:12px;font-size:14px;z-index:40;display:none}
+.card{position:relative}.rm{color:#c2413b;transition:background .15s}.rm:active{transform:scale(.93)}
+.rm{position:absolute;right:8px;bottom:8px;width:34px;height:34px;display:grid;place-items:center;border-radius:10px;font-size:17px;cursor:pointer;background:rgba(194,65,59,.12)}.rm:hover,.rm:focus-visible{background:rgba(194,65,59,.3);outline:none}
+.dlg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:60;display:none;align-items:center;justify-content:center;padding:20px}.dlg.on{display:flex}.dlg .box{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:20px;max-width:340px;width:100%}.dlg p{margin:0 0 16px;font-size:17px}.dlg .row{display:flex;gap:10px;justify-content:flex-end}
+:root{--p0:#b45309;--p1:#047857;--p2:#1d4ed8;--p3:#be123c;--p4:#6d28d9;--p5:#c2410c;--p6:#0e7490;--p7:#4d7c0f}
+.hd h1{background:linear-gradient(90deg,#1f6f5c,#2563eb,#9333ea,#e11d48,#1f6f5c);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:flow 5s linear infinite}.hd h1 small{-webkit-text-fill-color:var(--mu);color:var(--mu)}@keyframes flow{from{background-position:0 0}to{background-position:200% 0}}@media (prefers-reduced-motion:reduce){.hd h1{animation:none}}
+.card h3{display:inline-block;max-width:100%;word-break:break-word;background:rgba(255,255,255,.24);border-left:4px solid #fff;padding:3px 10px;border-radius:6px 10px 10px 6px;font-size:18px;font-weight:700;margin:0 0 9px;letter-spacing:.1px;text-shadow:0 1px 1px rgba(0,0,0,.18)}
+.card{color:#fff}.card p{color:rgba(255,255,255,.88)}.card .meta{color:rgba(255,255,255,.78)}.card .sh{color:#fff;background:rgba(255,255,255,.2)}.card .sh:hover,.card .sh:focus-visible{background:rgba(255,255,255,.35)}.card .rm{color:#fff;background:rgba(0,0,0,.25)}.card .rm:hover,.card .rm:focus-visible{background:rgba(0,0,0,.45)}
+
+
+.card{transition:transform .18s ease,box-shadow .18s ease}.card:hover,.card:focus-visible{transform:translateY(-4px);box-shadow:0 10px 22px rgba(0,0,0,.2);outline:none}
+#cols{display:none}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:10px}.hd h1{margin:0}.clk{text-align:right;line-height:1.25;flex-shrink:0}.clk b{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ac)}.clk span{font-size:12px;color:var(--mu)}
+.card{padding-bottom:52px}.sh{position:absolute;right:48px;bottom:8px;width:34px;height:34px;display:grid;place-items:center;border-radius:10px;cursor:pointer;color:var(--ac);background:rgba(31,111,92,.13);transition:background .15s}.sh:hover,.sh:focus-visible{background:rgba(31,111,92,.32);outline:none}.sh:active{transform:scale(.93)}
+#shl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}#shl a,#shl button{display:block;text-align:center;text-decoration:none;color:var(--tx);border:1px solid var(--ln);background:var(--bg);border-radius:12px;padding:10px 6px;font:500 15px "Hind Siliguri",sans-serif;cursor:pointer}#shl a:hover,#shl button:hover{border-color:var(--ac);color:var(--ac)}
+.top{position:fixed;left:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:48px;height:48px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--ln);background:var(--sf);color:var(--ac);box-shadow:0 4px 14px rgba(0,0,0,.2);cursor:pointer;z-index:8;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .2s,transform .2s}.top.on{opacity:1;pointer-events:auto;transform:none}.top:hover,.top:focus-visible{border-color:var(--ac);outline:none}
+.vw{position:fixed;inset:0;background:var(--bg);z-index:70;display:none;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}.vw.on{display:flex}.vb{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--ln)}.vb span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}#vc{flex:1;overflow:auto;padding:12px;display:flex;justify-content:center;align-items:flex-start}.vi{max-width:100%;height:auto;border-radius:10px}.vf{width:100%;height:100%;min-height:70vh;border:0;background:#fff}.vp{white-space:pre-wrap;word-break:break-word;width:100%;max-width:760px;margin:0;font:14px/1.6 ui-monospace,monospace}.vm{color:var(--mu);text-align:center;padding:40px 10px}
+.sb{background:#1e40af;border-color:#3b64d6;box-shadow:0 3px 10px rgba(30,64,175,.35);transition:box-shadow .15s,border-color .15s}.sb input{color:#fff}.sb input::placeholder{color:#c3d3ff;opacity:1}.sb:focus-within{border-color:#93b4ff;box-shadow:0 0 0 3px rgba(147,180,255,.35)}
+mark{background:#ffe27a;color:#222;border-radius:3px}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd"><h1>My Note<small id="cnt"></small></div></div>
+  <div class="sb"><span aria-hidden="true">🔍</span><input id="q" type="search" placeholder="নোট, লেখা বা ফাইলের নাম দিয়ে খুঁজুন" aria-label="খুঁজুন"></div>
+</header>
+<main><div id="list" class="grid"></div><div id="empty" class="empty" style="display:none"></div></main>
+<button class="top" id="top" aria-label="উপরে যান" title="উপরে যান"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg></button>
+<button class="fab" id="add">+ নতুন নোট</button>
+
+<div class="ed" id="ed" role="dialog" aria-label="নোট সম্পাদনা">
+  <div class="bar">
+    <button class="ib" id="back">← ফিরে যান</button><span class="sp"></span>
+    <button class="ib" id="pin">📌 পিন</button>
+    <button class="ib dng" id="del">মুছুন</button>
+    <button class="ib pri" id="save">সংরক্ষণ</button>
+  </div>
+  <div class="body">
+    <input class="t" id="t" placeholder="শিরোনাম">
+    <div class="cols" id="cols" aria-label="রং"></div>
+    <textarea id="b" placeholder="এখানে লিখুন..."></textarea>
+    <div class="fl">
+      <h4>সংযুক্ত ফাইল (যেকোনো ধরনের)</h4>
+      <div id="files"></div>
+      <button class="ib on" id="attach">+ ফাইল যোগ করুন</button>
+      <input type="file" id="fi" multiple hidden>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<div class="vw" id="vw"><div class="vb"><span id="vn"></span><button class="ib pri" id="vx">বন্ধ করুন</button></div><div id="vc"></div></div>
+<div class="dlg" id="shd"><div class="box"><p><b>শেয়ার করুন</b></p><div id="shl"></div><div class="row"><button class="ib" id="shx">বন্ধ করুন</button></div></div></div>
+<div class="dlg" id="dlg"><div class="box"><p>এই নোট ও এর সব ফাইল মুছে ফেলবেন?</p><div class="row"><button class="ib" id="dn">না, থাক</button><button class="ib pri" id="dy" style="background:#c2413b;color:#fff">হ্যাঁ, মুছুন</button></div></div></div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var notes=[],cur=null,db=null,mem=false,q="";
+var COL=["c0","c1","c2","c3","c4"];
+
+function openDB(){return new Promise(function(res,rej){
+  try{var r=indexedDB.open("mytask",1);
+  r.onupgradeneeded=function(){r.result.createObjectStore("notes",{keyPath:"id"})};
+  r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)};}catch(e){rej(e)}
+})}
+function store(m){return db.transaction("notes",m).objectStore("notes")}
+function dbAll(){return new Promise(function(res,rej){if(mem)return res(notes);var r=store("readonly").getAll();r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
+function dbPut(n){return new Promise(function(res,rej){if(mem)return res();var r=store("readwrite").put(n);r.onsuccess=res;r.onerror=function(){rej(r.error)}})}
+function dbDel(id){return new Promise(function(res,rej){if(mem)return res();var r=store("readwrite").delete(id);r.onsuccess=res;r.onerror=function(){rej(r.error)}})}
+
+function ask(){return new Promise(function(res){var d=$("dlg");d.classList.add("on");$("dy").focus();function fin(v){d.classList.remove("on");$("dy").onclick=$("dn").onclick=null;res(v)}$("dy").onclick=function(){fin(true)};$("dn").onclick=function(){fin(false)}})}
+function shText(n){var t=(n.title?n.title+"\n\n":"")+(n.body||"");if((n.files||[]).length)t+="\n\nFiles: "+n.files.map(function(f){return f.name}).join(", ");return t.trim()}
+function copyTxt(t){function fb(){var a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();var ok=false;try{ok=document.execCommand("copy")}catch(e){}a.remove();toast(ok?"কপি হয়েছে":"কপি করা যায়নি")}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast("কপি হয়েছে")},fb)}else fb()}
+function shSheet(n){var t=shText(n),e=encodeURIComponent(t),su=encodeURIComponent(n.title||"My Note"),eb=encodeURIComponent(t.slice(0,1500)),L=$("shl");L.innerHTML="";
+  [["WhatsApp","https://wa.me/?text="+e],["Telegram","https://t.me/share/url?url=%20&text="+e],["X (Twitter)","https://twitter.com/intent/tweet?text="+encodeURIComponent(t.slice(0,270))],["Gmail","https://mail.google.com/mail/?view=cm&fs=1&su="+su+"&body="+eb],["Email app","mailto:?subject="+su+"&body="+eb],["SMS","sms:?body="+eb]].forEach(function(x){var a=document.createElement("a");a.textContent=x[0];a.href=x[1];if(/^https/.test(x[1])){a.target="_blank";a.rel="noopener noreferrer"}L.appendChild(a)});
+  var c=document.createElement("button");c.textContent="কপি করুন";c.onclick=function(){copyTxt(t)};L.appendChild(c);$("shd").classList.add("on")}
+async function doShare(n){var t=shText(n);if(navigator.share){try{await navigator.share({title:n.title||"My Note",text:t});return}catch(e){if(e&&e.name==="AbortError")return}}shSheet(n)}
+$("shx").onclick=function(){$("shd").classList.remove("on")};$("shd").onclick=function(e){if(e.target===this)this.classList.remove("on")};
+function viewFile(f){
+  var V=$("vw"),C=$("vc"),t=f.type||"";$("vn").textContent=f.name;C.innerHTML="";V.classList.add("on");
+  function msg(s){C.innerHTML="";var p=document.createElement("p");p.className="vm";p.textContent=s;C.appendChild(p)}
+  if(f.text||isText(f)){var pre=document.createElement("pre");pre.className="vp";pre.textContent=f.text||"";if(!f.text){f.blob.text().then(function(x){pre.textContent=x.slice(0,200000)})}C.appendChild(pre);return}
+  msg("লোড হচ্ছে...");
+  var r=new FileReader();
+  r.onload=function(){var u=r.result,el;C.innerHTML="";
+    if(/^image\//.test(t)||/\.(jpe?g|png|gif|webp|bmp|svg)$/i.test(f.name)){el=new Image();el.className="vi";el.alt=f.name;var tried=0;el.onerror=function(){if(!tried){tried=1;try{el.src=URL.createObjectURL(f.blob)}catch(x){msg("ছবি দেখানো যায়নি")}}else msg("ছবি দেখানো যায়নি। ফাইলটি নষ্ট বা অসমর্থিত হতে পারে।")};el.src=u}
+    else if(/^video\//.test(t)){el=document.createElement("video");el.className="vi";el.controls=true;el.src=u}
+    else if(/^audio\//.test(t)){el=document.createElement("audio");el.controls=true;el.src=u}
+    else if(t==="application/pdf"||/\.pdf$/i.test(f.name)){el=document.createElement("iframe");el.className="vf";el.src=u}
+    else{msg("এই ধরনের ফাইল ("+ext(f.name)+") অ্যাপের ভেতরে দেখা যায় না। ফাইল নিরাপদে সংরক্ষিত আছে।");return}
+    C.appendChild(el)};
+  r.onerror=function(){msg("ফাইল পড়া যায়নি")};
+  r.readAsDataURL(f.blob)}
+$("vx").onclick=function(){$("vw").classList.remove("on");$("vc").innerHTML=""};
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2200)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hl(s){s=esc(s);if(!q)return s;var e=q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");return s.replace(new RegExp("("+esc(e)+")","gi"),"<mark>$1</mark>")}
+function sz(b){return b<1024?b+" B":b<1048576?(b/1024).toFixed(1)+" KB":(b/1048576).toFixed(1)+" MB"}
+function ext(n){var m=/\.([a-z0-9]+)$/i.exec(n);return m?m[1].toUpperCase().slice(0,4):"FILE"}
+function dt(t){return new Date(t).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}
+function match(n){
+  if(!q)return true;var s=q.toLowerCase();
+  if((n.title||"").toLowerCase().indexOf(s)>-1||(n.body||"").toLowerCase().indexOf(s)>-1)return true;
+  return (n.files||[]).some(function(f){return f.name.toLowerCase().indexOf(s)>-1||(f.text||"").toLowerCase().indexOf(s)>-1});
+}
+
+function render(){
+  var arr=notes.filter(match).sort(function(a,b){return (b.pinned?1:0)-(a.pinned?1:0)||b.updated-a.updated});
+  $("cnt").textContent=q?arr.length+"টি পাওয়া গেছে":notes.length?notes.length+"টি নোট":"";
+  var L=$("list");L.innerHTML="";
+  var E=$("empty");E.style.display=arr.length?"none":"block";
+  if(!arr.length)E.innerHTML=q?"<b>কিছু পাওয়া যায়নি</b>অন্য শব্দ দিয়ে খুঁজে দেখুন":"<b>এখনো কোনো নোট নেই</b>নিচের “নতুন নোট” চেপে শুরু করুন";
+var order=notes.slice().sort(function(a,b){return (parseInt(String(a.id).slice(1,14))||0)-(parseInt(String(b.id).slice(1,14))||0)});
+  arr.forEach(function(n){
+    var b=document.createElement("button");b.className="card";b.style.background="var(--p"+(order.indexOf(n)%8)+")";
+    var fm=(n.files||[]).filter(function(f){return q&&(f.name.toLowerCase().indexOf(q.toLowerCase())>-1||(f.text||"").toLowerCase().indexOf(q.toLowerCase())>-1)});
+    b.innerHTML="<h3>"+(n.pinned?"📌 ":"")+hl(n.title||"শিরোনামহীন")+"</h3>"+(n.body?"<p>"+hl(n.body.slice(0,300))+"</p>":"")+
+      (fm.length?"<p>"+fm.map(function(f){return "📎 "+hl(f.name)}).join("<br>")+"</p>":"")+
+      "<div class='meta'><span>"+dt(n.updated)+"</span>"+((n.files||[]).length?"<span>📎 "+n.files.length+"টি ফাইল</span>":"")+"</div>";
+    var r=document.createElement("span");r.className="rm";r.setAttribute("role","button");r.tabIndex=0;r.title="মুছুন";r.setAttribute("aria-label","নোট মুছুন");r.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';
+    var rmv=async function(ev){ev.stopPropagation();ev.preventDefault();if(!(await ask()))return;notes=notes.filter(function(x){return x.id!==n.id});try{await dbDel(n.id)}catch(e){}toast("মুছে ফেলা হয়েছে");render()};
+    r.onclick=rmv;r.onkeydown=function(ev){if(ev.key==="Enter"||ev.key===" ")rmv(ev)};
+    var s=document.createElement("span");s.className="sh";s.setAttribute("role","button");s.tabIndex=0;s.title="শেয়ার";s.setAttribute("aria-label","নোট শেয়ার করুন");
+    s.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>';
+    var shr=function(ev){ev.stopPropagation();ev.preventDefault();doShare(n)};
+    s.onclick=shr;s.onkeydown=function(ev){if(ev.key==="Enter"||ev.key===" ")shr(ev)};
+    b.appendChild(s);
+    b.appendChild(r);
+    b.onclick=function(){edit(n)};L.appendChild(b);
+  });
+}
+
+function edit(n){
+  cur=n?JSON.parse(JSON.stringify(n,function(k,v){return k==="blob"?undefined:v})):null;
+  if(n){cur.files=(n.files||[]).slice()}else{cur={id:"n"+Date.now()+Math.random().toString(36).slice(2,6),title:"",body:"",color:"c0",pinned:false,files:[],updated:Date.now(),isNew:true}}
+  $("t").value=cur.title;$("b").value=cur.body;$("del").style.display=cur.isNew?"none":"";
+  paint();$("ed").classList.add("on");if(cur.isNew)$("t").focus();
+}
+function paint(){
+  $("pin").classList.toggle("on",!!cur.pinned);
+  var c=$("cols");c.innerHTML="";
+  COL.forEach(function(k){var b=document.createElement("button");b.style.background="var(--"+k+")";b.setAttribute("aria-label","রং "+k);if(cur.color===k)b.className="s";b.onclick=function(){cur.color=k;paint()};c.appendChild(b)});
+  var F=$("files");F.innerHTML="";
+  cur.files.forEach(function(f,i){
+    var d=document.createElement("div");d.className="f";
+    d.innerHTML="<i>"+esc(ext(f.name))+"</i><span>"+esc(f.name)+" <small>"+sz(f.size)+"</small></span><button data-o>খুলুন</button><button class='x' data-x>✕</button>";
+    d.querySelector("[data-o]").onclick=function(){
+      try{viewFile(f);return}catch(e){toast("ফাইল খোলা যায়নি")}};
+    d.querySelector("[data-x]").onclick=function(){cur.files.splice(i,1);paint()};
+    F.appendChild(d);
+  });
+}
+function isText(f){return /^text\//.test(f.type)||/\.(txt|md|csv|json|log|xml|html|js|css|py|tsv)$/i.test(f.name)}
+$("fi").onchange=async function(e){
+  var fs=Array.prototype.slice.call(e.target.files);
+  for(var i=0;i<fs.length;i++){var f=fs[i],o={name:f.name,type:f.type,size:f.size,blob:f,text:""};
+    if(isText(f)&&f.size<2e6){try{o.text=(await f.text()).slice(0,200000)}catch(x){}}
+    cur.files.push(o)}
+  e.target.value="";paint();toast(fs.length+"টি ফাইল যোগ হয়েছে");
+};
+$("attach").onclick=function(){$("fi").click()};
+$("pin").onclick=function(){cur.pinned=!cur.pinned;paint()};
+async function save(){
+  cur.title=$("t").value.trim();cur.body=$("b").value;
+  if(!cur.title&&!cur.body&&!cur.files.length){return false}
+  cur.updated=Date.now();delete cur.isNew;
+  var i=notes.findIndex(function(n){return n.id===cur.id});
+  if(i>-1)notes[i]=cur;else notes.push(cur);
+  try{await dbPut(cur)}catch(e){toast("সংরক্ষণ করা যায়নি (জায়গা কম হতে পারে)");return false}
+  return true;
+}
+function close(){$("ed").classList.remove("on");cur=null;render()}
+$("save").onclick=async function(){if(await save())toast("সংরক্ষিত হয়েছে");close()};
+$("back").onclick=async function(){await save();close()};
+$("del").onclick=async function(){
+  if(!(await ask()))return;
+  notes=notes.filter(function(n){return n.id!==cur.id});await dbDel(cur.id);toast("মুছে ফেলা হয়েছে");close();
+};
+$("add").onclick=function(){edit(null)};
+
+
+(function(){var P=["নোট খুঁজুন","লেখা দিয়ে খুঁজুন","ফাইলের নাম দিয়ে খুঁজুন","ফাইলের ভেতরের লেখা খুঁজুন"],q=$("q"),i=0,j=0,del=false,segs=null;
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+  function split(s){try{if(window.Intl&&Intl.Segmenter)return Array.from(new Intl.Segmenter("bn",{granularity:"grapheme"}).segment(s),function(x){return x.segment})}catch(e){}return Array.from(s)}
+  function step(){var g=split(P[i]),d=70;
+    if(!del){j++;if(j>=g.length){j=g.length;del=true;d=1500}}else{j--;d=35;if(j<=0){j=0;del=false;i=(i+1)%P.length;d=300}}
+    if(!q.value)q.placeholder=g.slice(0,j).join("")+"|";
+    setTimeout(step,d)}
+  step()})();
+function topChk(){var y=window.pageYOffset||document.documentElement.scrollTop||0;$("top").classList.toggle("on",y>300)}
+window.addEventListener("scroll",topChk,{passive:true});topChk();
+$("top").onclick=function(){try{window.scrollTo({top:0,behavior:"smooth"})}catch(e){window.scrollTo(0,0)}};
+$("q").oninput=function(e){q=e.target.value.trim();render()};
+
+(async function(){
+  try{db=await openDB();notes=await dbAll()}catch(e){mem=true;notes=[];toast("স্থায়ী সংরক্ষণ চালু নেই, তথ্য সাময়িক")}
+  render();
+})();
+})();
+</script>
+</body>
+</html>
